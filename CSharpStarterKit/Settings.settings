@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CSharpStarterKit" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="endpoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://api.develop.moreapp.com</Value>
+    </Setting>
+    <Setting Name="salt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">testSalt</Value>
+    </Setting>
+    <Setting Name="consumerKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">partner1</Value>
+    </Setting>
+    <Setting Name="consumerSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">test1234</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
