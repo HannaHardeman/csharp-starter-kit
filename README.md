@@ -4,12 +4,7 @@ An example project to help MoreApp partners with their first usage of the API.
 
 ## Run
 
-Open the solution with Visual Studio and install the following packages with NuGet.
-
-```
-Install-Package OAuth 1.0.3
-Install-Package Newtonsoft.Json 6.0.6
-```
+Open the solution with Visual Studio and run the application.
 
 ## Example code
 
@@ -56,4 +51,3 @@ To use the example for your own usage change the file `CSharpStarterKit/Settings
 - The `salt` property should be changed into the salt that you can acquire in de developer portal under FAQ. 
 - The `consumerKey` and `consumerSecret` properties should be changed into the correct partner credentials.
 
-# Coming soon...
