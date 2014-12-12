@@ -29,6 +29,8 @@ namespace CSharpStarterKit
             customers.ForEach(delegate(Dictionary<String, String> customer) {
                 Console.WriteLine(" - " + customer["name"]);
             }); 
+            Console.Write("Press any key...");
+            Console.ReadLine();
         }
 
         private static string MakeRequest(Settings settings, string baseUrl, string path)
