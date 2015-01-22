@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using OAuth;
 using System.Security.Cryptography;
 
+using System.Collections.Specialized;
+
 namespace CSharpStarterKit
 {
     class Program
@@ -20,26 +22,32 @@ namespace CSharpStarterKit
             Settings settings = Settings.Default;
 
             //Make Request
-            string stringResponse = MakeRequest(settings, settings.endpoint, "/api/v1.0/customers");            
-
+            string stringResponse = MakeRequest(settings, settings.endpoint, "/api/v1.0/customers");
             //Print the result
             Console.WriteLine("The customers are:");
             List<Dictionary<String, String>> customers = JsonConvert.DeserializeObject<List<Dictionary<String, String>>>(stringResponse);
 
             customers.ForEach(delegate(Dictionary<String, String> customer) {
                 Console.WriteLine(" - " + customer["name"]);
-            }); 
+            });
+
+            Dictionary<String, String> data = new Dictionary<String, String>();
+            data.Add("pageSize", "10");
+            string postResponse = MakeRequest(settings, settings.endpoint, "/api/v1.0/customers/900002/applications/c900002a1/forms/6971171074bad4a29c09c78eb036b130VIEW_ZERO/registrations", "POST", data);
+            Dictionary<String, Object> registrations = JsonConvert.DeserializeObject<Dictionary<String, Object>>(postResponse);
+            Console.WriteLine("Total size: " + registrations["totalSize"]);
+
             Console.Write("Press any key...");
             Console.ReadLine();
         }
 
-        private static string MakeRequest(Settings settings, string baseUrl, string path)
+        private static string MakeRequest(Settings settings, string baseUrl, string path, string method = "GET", Dictionary<String, String> data = null)
         {
             string url = baseUrl + path;
             //create an instance of OAuthRequest with the appropriate properties
             OAuthRequest client = new OAuthRequest
             {
-                Method = "GET",
+                Method = method,
                 Type = OAuthRequestType.RequestToken,
                 SignatureMethod = OAuthSignatureMethod.HmacSha1,
                 ConsumerKey = settings.consumerKey,
@@ -51,7 +59,15 @@ namespace CSharpStarterKit
             WebClient c = new WebClient();
             c.Headers.Add("Authorization", auth);
             c.BaseAddress = baseUrl;
-            return c.DownloadString(path);
+            if (method == "GET")
+            {
+                return c.DownloadString(path);
+            }
+            else
+            {
+                c.Headers[HttpRequestHeader.ContentType] = "application/json";
+                return c.UploadString(path, JsonConvert.SerializeObject(data));
+            }
         }
 
         //Method to salt the password and hash the password using a SHA-1
@@ -69,3 +85,4 @@ namespace CSharpStarterKit
         }
     }
 }
+
